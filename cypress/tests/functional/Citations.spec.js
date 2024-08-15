@@ -1,4 +1,4 @@
-/* npx cypress open  --config integrationFolder=plugins/generic/openid/cypress/tests */
+/* npx cypress open  --config specPattern=plugins/generic/citations/cypress/tests */
 describe('Scopus/Crossref Plugin tests', function () {
 
 	it('Disable Scopus/Crossref Plugin', function () {
