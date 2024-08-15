@@ -4,6 +4,7 @@ namespace APP\plugins\generic\citations\classes;
 
 use APP\handler\Handler;
 
+use APP\plugins\generic\citations\CitationsPlugin;
 use APP\plugins\generic\citations\classes\processor\CrossrefProcessor;
 use APP\plugins\generic\citations\classes\processor\EuropePmcProcessor;
 use APP\plugins\generic\citations\classes\processor\ScopusProcessor;
