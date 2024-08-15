@@ -34,9 +34,9 @@ class CitationsPlugin extends GenericPlugin
             $templateMgr->addStyleSheet(
                 'citations', $request->getBaseUrl() . '/' . $this->getPluginPath() . '/css/citations.css'
             );
-            Hook::add('Templates::Article::Details', array($this, 'citationsContent'));
-            Hook::add('Templates::Preprint::Details', array($this, 'citationsContent'));
-            Hook::add('LoadHandler', array($this, 'setPageHandler'));
+            Hook::add('Templates::Article::Details', $this->citationsContent(...));
+            Hook::add('Templates::Preprint::Details', $this->citationsContent(...));
+            Hook::add('LoadHandler', $this->setPageHandler(...));
         }
         return $success;
     }
@@ -63,7 +63,7 @@ class CitationsPlugin extends GenericPlugin
         $request = Application::get()->getRequest();
         $smarty =& $args[1];
         $pubId = $this->getPubId($smarty);
-        //$pubId = '10.1177/09636625221100686';
+        // $pubId = '10.1177/09636625221100686';
         $contextId = $request->getContext()->getId();
         $settings = json_decode($this->getSetting($contextId, 'settings'), true);
         if (!empty($pubId) && !empty($settings)) {
@@ -79,11 +79,16 @@ class CitationsPlugin extends GenericPlugin
     }
 
 
+    /**
+     * Route requests for the citations to custom page handler
+     */
     public function setPageHandler($hookName, $params): bool
     {
-        $page = $params[0];
+        $page = &$params[0];
+        $handler = &$params[3];
+
         if ($this->getEnabled() && $page === 'citations') {
-            define('HANDLER_CLASS', CitationsHandler::class);
+            $handler = new CitationsHandler();
             return true;
         }
         return false;
@@ -95,7 +100,6 @@ class CitationsPlugin extends GenericPlugin
     public function getActions($request, $actionArgs): array
     {
         $router = $request->getRouter();
-        import('lib.pkp.classes.linkAction.request.AjaxModal');
         return array_merge(
             $this->getEnabled() ? array(
                 new LinkAction(
