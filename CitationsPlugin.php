@@ -172,6 +172,7 @@ class CitationsPlugin extends GenericPlugin
 
 }
 
+
 if (!PKP_STRICT_MODE) {
     class_alias('\APP\plugins\generic\citations\CitationsPlugin', '\CitationsPlugin');
 }
