@@ -11,7 +11,7 @@ describe('Scopus/Crossref Plugin tests', function () {
 				if ($btn.attr('checked') === 'checked') {
 					cy.get('input[id^="select-cell-citationsplugin-enabled"]').click();
 					cy.get('div[class*="pkp_modal_panel"] button[class*="pkpModalConfirmButton"]').click();
-					cy.get('div:contains(\'The plugin "Scopus/Crossref Plugin" has been disable.\')');
+					cy.get('div:contains(\'The plugin "Scopus/Crossref Plugin" has been disabledd .\')');
 				}
 			});
 	});
